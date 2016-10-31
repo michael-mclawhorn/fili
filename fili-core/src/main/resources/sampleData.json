@@ -1,0 +1,2 @@
+{ "FOO_ID": { "int": 12345 }, "FOO_DESC": { "string": "bar" } }
+{ "FOO_ID": { "int": 67890 }, "FOO_DESC": { "string": "baz" } }
