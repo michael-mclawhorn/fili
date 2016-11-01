@@ -18,7 +18,7 @@ public interface DimensionFieldMapper {
      *
      * @return the converted string for the dimension field
      */
-    String converter(Dimension dimension, DimensionField dimensionField);
+    String convert(Dimension dimension, DimensionField dimensionField);
 
     /**
      * A default implementation of the converter method which uses underscore as a separator.

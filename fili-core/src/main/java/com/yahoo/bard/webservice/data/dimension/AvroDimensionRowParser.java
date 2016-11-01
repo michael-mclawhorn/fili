@@ -2,11 +2,11 @@
 // Licensed under the terms of the Apache license. Please see LICENSE.md file distributed with this work for terms.
 package com.yahoo.bard.webservice.data.dimension;
 
-import com.fasterxml.jackson.core.JsonFactory;
+import com.yahoo.bard.webservice.data.cache.HashDataCache.Pair;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
@@ -18,10 +18,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Parses an AVRO file into Dimension Rows.
@@ -29,10 +30,9 @@ import java.util.stream.Collectors;
 public class AvroDimensionRowParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(AvroDimensionRowParser.class);
-    private static ObjectMapper MAPPER = null;
+    private ObjectMapper objectMapper;
 
     private DimensionFieldMapper dimensionFieldMapper;
-    private Map<String, String> convertedDimensionFields;
 
     /**
      * Constructs an AvroDimensionRowParser object based on the DimensionFieldMapper object.
@@ -41,8 +41,8 @@ public class AvroDimensionRowParser {
      * @param objectMapper Object that is used to construct mapper objects
      */
     public AvroDimensionRowParser(DimensionFieldMapper dimensionFieldMapper, ObjectMapper objectMapper) {
-        this.dimensionFieldMapper = dimensionFieldMapper;
-        MAPPER = objectMapper;
+        this.dimensionFieldMapper = memoize(dimensionFieldMapper);
+        this.objectMapper = objectMapper;
     }
 
     /**
@@ -53,10 +53,29 @@ public class AvroDimensionRowParser {
      *
      * @return true if the schema is valid, false otherwise
      *
-     * @throws NullPointerException thrown if JSON object `fields` is not present
+     * @throws IllegalArgumentException thrown if JSON object `fields` is not present
      * @throws IOException thrown if there is error parsing the avro files
+     *
+     * The sample schema is expected to be in the following format
+     *
+     * {
+     *    "type" : "record",
+     *    "name" : "TUPLE_0",
+     *    "fields" : [
+     *    {
+     *    "name" : "FOO_ID",
+     *    "type" : [ "null","int" ]
+     *    },
+     *    {
+     *    "name" : "FOO_DESC",
+     *    "type" : [ "null", "string" ]
+     *    }
+     *    ]
+     * }
+     *
      */
-    public boolean isSchemaValid(Dimension dimension, String avroSchemaPath) throws NullPointerException, IOException {
+    public boolean isSchemaValid(Dimension dimension, String avroSchemaPath)
+        throws IllegalArgumentException, IOException {
 
         // Convert the AVRO schema file into JsonNode Object
         JsonNode jsonAvroSchema = convertFileToJsonNode(avroSchemaPath);
@@ -66,29 +85,24 @@ public class AvroDimensionRowParser {
             return false;
         }
 
-        // This may throw a NullPointerException, if the AVRO schema file does not have a `fields` JSON object.
-        int fieldSize = jsonAvroSchema.get("fields").size();
-
-        jsonAvroSchema = jsonAvroSchema.get("fields");
-
-        HashSet<String> avroFields = new HashSet<>(fieldSize);
-
-        // Streaming cannot be used, because `avroFields` is a JsonNode object
-        for (int i = 0 ; i < fieldSize; i++) {
-            // Parsing the JsonNode object as Text, `toString()` adds an additional `"`
-            avroFields.add(jsonAvroSchema.get(i).get("name").asText());
+        try {
+            jsonAvroSchema = jsonAvroSchema.get("fields");
+        } catch (NullPointerException e) {
+            String msg = "`fields` is a required field in the avro schema {}";
+            LOG.error(msg, e);
+            throw new IllegalArgumentException(msg);
         }
 
-        Function<DimensionField, String> curriedConverter = curry(dimension, dimensionFieldMapper);
+        // Populating the set of avro field names
+        Set<String> avroFields = StreamSupport.stream(jsonAvroSchema.spliterator(), false)
+                .map(jsonNode -> jsonNode.get("name"))
+                .map(JsonNode::asText)
+                .collect(Collectors.toSet());
 
-        // Generates a map of configured dimension field names and the converted field names, for easier lookups in the
-        // `parseAvroFileDimensionRows()`
-        convertedDimensionFields = dimension.getDimensionFields()
-                .stream()
-                .collect(Collectors.toMap(dimensionField -> dimensionField.getName(), curriedConverter));
-
-        // Returns true, only if all the dimension fields present in the configured dimension exist in the AVRO schema
-        return convertedDimensionFields.values().containsAll(avroFields);
+        // True only if all of the mapped dimension fields are present in the Avro schema
+        return dimension.getDimensionFields().stream()
+                .map(dimensionField -> dimensionFieldMapper.convert(dimension, dimensionField))
+                .allMatch(avroFields::contains);
     }
 
     /**
@@ -98,51 +112,43 @@ public class AvroDimensionRowParser {
      * @param avroFilePath The path of the AVRO data file (.avro)
      * @param avroSchemaPath The path of the AVRO schema file (.avsc)
      *
-     * @throws NullPointerException thrown if JSON object `fields` is not present
+     * @throws IllegalArgumentException thrown if JSON object `fields` is not present
      * @throws IOException thrown if there is error parsing the avro files
      */
     public void parseAvroFileDimensionRows(Dimension dimension, String avroFilePath, String avroSchemaPath)
-        throws NullPointerException, IOException {
+        throws IllegalArgumentException, IOException {
 
         if (isSchemaValid(dimension, avroSchemaPath)) {
 
-            JsonNode jsonAvroSchema = convertFileToJsonNode(avroSchemaPath);
-
             // Creates an AVRO schema object based on the parsed AVRO schema file (.avsc)
-            Schema schema = new Schema.Parser().parse(jsonAvroSchema.toString());
+            Schema schema = new Schema.Parser().parse(new File(avroSchemaPath));
 
             // Creates an AVRO DatumReader object based on the AVRO schema object
             DatumReader<GenericRecord> datumReader = new GenericDatumReader<>(schema);
 
             // Creates an AVRO DataFileReader object that reads the AVRO data file one record at a time
-            DataFileReader<GenericRecord> dataFileReader =
-                new DataFileReader<>(new File(avroFilePath), datumReader);
+            DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(new File(avroFilePath), datumReader);
 
-            // Represents each record in the avro data file
-            GenericRecord avroData = null;
+            // Generates a set of dimension Rows after retrieving the appropriate fields
+            Set<DimensionRow> dimensionRows = StreamSupport.stream(dataFileReader.spliterator(), false)
+                    .map(genericRecord -> dimension.getDimensionFields().stream().collect(
+                             Collectors.toMap(
+                                 DimensionField::getName,
+                                 dimensionField -> genericRecord.get(
+                                     dimensionFieldMapper.convert(dimension, dimensionField)
+                                 ).toString()
+                             )
+                         )
+                    )
+                    .map(dimension::parseDimensionRow)
+                    .collect(Collectors.toSet());
 
-            while (dataFileReader.hasNext()) {
-                avroData = dataFileReader.next(avroData);
-
-                // Creates a JsonObject from the AVRO GenericRecord object
-                JsonNode avroDataJson = MAPPER.readTree(new JsonFactory().createParser(avroData.toString()));
-
-                // Constructs a Map of the converted dimension field name and the corresponding value in the avro file
-                Map<String, String> dimensionFieldKeyValues = dimension.getDimensionFields()
-                        .stream()
-                        .collect(Collectors.toMap(dimensionField -> dimensionField.getName(),
-                                                  // Looks up converted field name from the `convertedDimensionFields`
-                                                  // Parsed as text to avoid the extra quotes around string objects
-                                                  dimensionField -> avroDataJson
-                                                        .get(convertedDimensionFields
-                                                                .get(dimensionField.getName())
-                                                        ).asText()
-                                                )
-                        );
-
-                // Parses the dimensionRow based on the map generated above and then adds it to the dimension cache
-                dimension.addDimensionRow(dimension.parseDimensionRow(dimensionFieldKeyValues));
-            }
+                // Adds all dimension rows to the dimension cache
+                dimension.addAllDimensionRows(dimensionRows);
+        } else {
+            String msg = "The AVRO schema file is corrupted / empty {}";
+            LOG.error(msg);
+            throw new IllegalArgumentException(msg);
         }
     }
 
@@ -156,30 +162,31 @@ public class AvroDimensionRowParser {
      * @throws IOException thrown if there is error parsing the avro files
      */
     private JsonNode convertFileToJsonNode(String avroSchemaPath) throws IOException {
-        File file;
-        JsonNode jsonNode;
+
         try {
-            file = new File(avroSchemaPath);
-            jsonNode = MAPPER.readTree(file);
+            File file = new File(avroSchemaPath);
+            JsonNode jsonNode = objectMapper.readTree(file);
             return jsonNode;
         } catch (JsonProcessingException e) {
-            LOG.error("Unable to process the Json ", e.getStackTrace());
+            LOG.error("Unable to process the Json {}", e);
             throw e;
         } catch (IOException e) {
-            LOG.error("Unable to process the file ", e.getStackTrace());
+            LOG.error("Unable to process the file {}", e);
             throw e;
         }
     }
 
     /**
-     * Returns a converter function for the dimension field name mapping.
+     * Returns a memoized converter function for the dimension field name mapping.
      *
-     * @param dimension The dimension object used to configure the dimension
      * @param dimensionFieldMapper Object that defines the dimension field name transformations
-     *
-     * @return Function that converts the dimension field name based on the user mapping
+     * @return Memoized function that converts the dimension field name based on the user mapping
      */
-    private Function<DimensionField, String> curry(Dimension dimension, DimensionFieldMapper dimensionFieldMapper) {
-        return dimensionField -> dimensionFieldMapper.converter(dimension, dimensionField);
+    private DimensionFieldMapper memoize(DimensionFieldMapper dimensionFieldMapper) {
+        Map<Pair<Dimension, DimensionField>, String> cache = new HashMap<>();
+        return (dimension, dimensionField) -> cache.computeIfAbsent(
+                new Pair<>(dimension, dimensionField),
+                key -> dimensionFieldMapper.convert(key.getKey(), key.getValue())
+        );
     }
 }
