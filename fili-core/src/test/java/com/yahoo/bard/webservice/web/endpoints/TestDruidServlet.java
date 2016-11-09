@@ -3,6 +3,7 @@
 package com.yahoo.bard.webservice.web.endpoints;
 
 import com.yahoo.bard.webservice.util.JsonSlurper;
+import com.yahoo.bard.webservice.web.handlers.RequestContext;
 
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -24,6 +27,7 @@ public class TestDruidServlet {
     static String jsonResponse = "[]";
     static Response.Status statusCode = Status.OK;
     static public String jsonQuery = "";
+    static public MultivaluedMap<String, String> headers;
     static public String weightResponse = "";
 
     /**
@@ -72,7 +76,8 @@ public class TestDruidServlet {
      */
     @POST
     @Consumes("application/json")
-    public Response post(String query) {
+    public Response post(@Context RequestContext requestContext, String query) {
+        headers = requestContext.getHeaders();
         jsonQuery = query;
 
         // Respond to WeightEvaluationQuery
