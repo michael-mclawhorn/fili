@@ -2,6 +2,7 @@
 // Licensed under the terms of the Apache license. Please see LICENSE.md file distributed with this work for terms.
 package com.yahoo.bard.webservice.config.luthier;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.yahoo.bard.webservice.data.config.ConfigurationLoader;
 import com.yahoo.bard.webservice.data.config.ResourceDictionaries;
 import com.yahoo.bard.webservice.data.dimension.Dimension;
@@ -27,10 +28,11 @@ import java.util.function.Supplier;
  */
 public class LuthierIndustrialPark implements ConfigurationLoader {
 
+    private static final String DOMAIN_NOT_FOUND = "'%s' is not found in SearchProviderConfig.json";
+    private static final String FORMAT_MISMATCH = "Unexpected format encountered when parsing domain '%s'";
+    private static final String UNKNOWN_SEARCH_PROVIDER = "Unknown search provider '%s' when processing domain '%s'";
     private final ResourceDictionaries resourceDictionaries;
-
     private final Map<String, Factory<Dimension>> dimensionFactories;
-
     private final FactoryPark<Dimension> dimensionFactoryPark;
 
     /**
@@ -75,26 +77,36 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
     /**
      * Bare minimum that can work.
      */
+    public SearchProvider getSearchProvider(String domain) {
+        Supplier<ObjectNode> searchProviderConfig = new ResourceNodeSupplier("SearchProviderConfig.json");
+        JsonNode config = searchProviderConfig.get().get(domain);
+        if (config == null) {
+            String message = String.format(DOMAIN_NOT_FOUND, domain);
+            throw new LuthierFactoryException(message);
+        }
+        try {
+            String type = config.get("type").textValue();
+            switch (type) {
+                case "com.yahoo.bard.webservice.data.dimension.impl.NoOpSearchProvider":
+                    int queryWeightLimit = config.get("queryWeightLimit").intValue();
+                    return new NoOpSearchProvider(queryWeightLimit);
 
-    // TODO: Magic values!
-    private int magicQueryweightlimit = 10000;
-    private String magicLuceneindexpath = "path";
-    private int magicMaxresults = 10000;
+                case "com.yahoo.bard.webservice.data.dimension.impl.LuceneSearchProvider":
+                    String indexPath = config.get("indexPath").textValue();
+                    int maxResults = config.get("maxResults").intValue();
+                    int searchTimeout = config.get("searchTimeout").intValue();
+                    return new LuceneSearchProvider(indexPath, maxResults, searchTimeout);
 
-    /**
-     * Bare minimum.
-     *
-     * @param searchProviderName identifier of the searchProvider
-     * @return the searchProvider that is built from the identifier passed in
-     */
-    public SearchProvider getSearchProvider(String searchProviderName) {
-        switch (searchProviderName) {
-            case "com.yahoo.bard.webservice.data.dimension.impl.NoOpSearchProvider":
-                return new NoOpSearchProvider(magicQueryweightlimit);
-            case "com.yahoo.bard.webservice.data.dimension.impl.LuceneSearchProvider":
-                return new LuceneSearchProvider(magicLuceneindexpath, magicMaxresults);
-            default:
-                return new ScanSearchProvider();
+                case "com.yahoo.bard.webservice.data.dimension.impl.ScanSearchProvider":
+                    return new ScanSearchProvider();
+
+                default:
+                    String message = String.format(UNKNOWN_SEARCH_PROVIDER, type, domain);
+                    throw new LuthierFactoryException(message);
+            }
+        } catch (NullPointerException e) {
+            String message = String.format(FORMAT_MISMATCH, domain);
+            throw new LuthierFactoryException(message, e);
         }
     }
 

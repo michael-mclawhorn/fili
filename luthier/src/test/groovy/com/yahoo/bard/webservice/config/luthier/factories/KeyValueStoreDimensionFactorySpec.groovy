@@ -7,7 +7,7 @@ import com.yahoo.bard.webservice.data.config.ResourceDictionaries
 import com.yahoo.bard.webservice.data.dimension.Dimension
 import com.yahoo.bard.webservice.data.dimension.DimensionField
 import com.yahoo.bard.webservice.data.dimension.SearchProvider
-import com.yahoo.bard.webservice.data.dimension.impl.NoOpSearchProvider
+import com.yahoo.bard.webservice.data.dimension.impl.LuceneSearchProvider
 import spock.lang.Specification
 
 class KeyValueStoreDimensionFactorySpec extends Specification {
@@ -56,7 +56,7 @@ class KeyValueStoreDimensionFactorySpec extends Specification {
 
             // type correctness of searchProvider
             // we cannnot check keyValueStore directly
-            searchProvider.getClass() == NoOpSearchProvider
+            searchProvider.getClass() == LuceneSearchProvider
     }
 
     def "When new dimension's name match with the previous dimension, use a reference to the previous one"() {
