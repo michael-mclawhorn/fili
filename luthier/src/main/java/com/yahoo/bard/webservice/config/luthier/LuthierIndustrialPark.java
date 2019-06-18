@@ -36,7 +36,7 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
     /**
      * Constructor.
      *
-     * @param resourceDictionaries  The dictionaries to initialize the industrial park with.
+     * @param resourceDictionaries  The dictionaries to initialize the industrial park with
      * @param dimensionFactories The map of factories for creating dimensions from external config
      */
     protected LuthierIndustrialPark(
@@ -73,24 +73,38 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
     }
 
     /**
-     * Bare minimum that can work
+     * Bare minimum that can work.
      */
 
     // TODO: Magic values!
-    int MAGIC_queryWeightLimit = 10000;
-    String MAGIC_luceneIndexPath = "path";
-    int MAGIC_maxResults = 10000;
+    private int magicQueryweightlimit = 10000;
+    private String magicLuceneindexpath = "path";
+    private int magicMaxresults = 10000;
+
+    /**
+     * Bare minimum.
+     *
+     * @param searchProviderName identifier of the searchProvider
+     * @return the searchProvider that is built from the identifier passed in
+     */
     public SearchProvider getSearchProvider(String searchProviderName) {
         switch (searchProviderName) {
             case "com.yahoo.bard.webservice.data.dimension.impl.NoOpSearchProvider":
-                return new NoOpSearchProvider(MAGIC_queryWeightLimit);
+                return new NoOpSearchProvider(magicQueryweightlimit);
             case "com.yahoo.bard.webservice.data.dimension.impl.LuceneSearchProvider":
-                return new LuceneSearchProvider(MAGIC_luceneIndexPath, MAGIC_maxResults);
+                return new LuceneSearchProvider(magicLuceneindexpath, magicMaxresults);
             default:
                 return new ScanSearchProvider();
         }
     }
 
+    /**
+     * Bare minimum.
+     *
+     * @param keyValueStoreName identifier of the keyValueStore
+     * @return the keyValueStore built according to the keyValueStore identifier
+     * @throws UnsupportedOperationException when passed in redisStore.
+     */
     public KeyValueStore getKeyValueStore(String keyValueStoreName) throws UnsupportedOperationException {
         switch (keyValueStoreName) {
             // TODO: Magic values!
@@ -132,16 +146,20 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
         return resourceDictionaries;
     }
 
+    /**
+     * Builder object to construct a new LuthierIndustrialPark instance with.
+     */
     public static class Builder {
-    
+
         private Map<String, Factory<Dimension>> dimensionFactories;
+
         private final ResourceDictionaries resourceDictionaries;
 
         /**
          * Constructor.
          *
-         * @param resourceDictionaries a class that contains resource dictionaries including
-         *                             PhysicalTableDictionary, DimensionDictionary, etc.
+         * @param resourceDictionaries  a class that contains resource dictionaries including
+         * PhysicalTableDictionary, DimensionDictionary, etc.
          */
         public Builder(ResourceDictionaries resourceDictionaries) {
             this.resourceDictionaries = resourceDictionaries;
@@ -161,18 +179,44 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
             return new LinkedHashMap<>();
         }
 
+        /**
+         * Registers named dimension factories with the Industrial Park Builder.
+         * <p>
+         * There should be one factory per type of dimension used in the config
+         *
+         * @param factories  A mapping from a dimension type identifier used in the config
+         * to a factory that builds Dimensions of that type
+         *
+         * @return the builder object
+         */
         public Builder withDimensionFactories(Map<String, Factory<Dimension>> factories) {
             this.dimensionFactories = factories;
             return this;
         }
 
+        /**
+         * Registers a named dimension factory with the Industrial Park Builder.
+         * <p>
+         * There should be one factory per type of dimension used in the config
+         *
+         * @param name  The identifier used in the configuration to identify the type of
+         * dimension built by this factory
+         * @param factory  A factory that builds Dimensions of the type named by {@code name}
+         *
+         * @return the builder object
+         */
         public Builder withDimensionFactory(String name, Factory<Dimension> factory) {
             dimensionFactories.put(name, factory);
             return this;
         }
 
+        /**
+         * Builds a LuthierIndustrialPark.
+         *
+         * @return the LuthierIndustrialPark with the specified resourceDictionaries and factories
+         */
         public LuthierIndustrialPark build() {
             return new LuthierIndustrialPark(resourceDictionaries, new LinkedHashMap<>(dimensionFactories));
         }
-    } 
+    }
 }
