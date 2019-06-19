@@ -1,8 +1,7 @@
 {
-  "PT08.S5(O3)": {
-    "defaultFields": [],
+  "comment": {
+    "type": "KeyValueStoreDimension",
     "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
     "fields": [
       {
         "tags": [
@@ -15,178 +14,17 @@
         "name": "DESC"
       }
     ],
+    "longName": "wiki comment",
+    "description": "Comment for the edit to the wiki page",
     "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "PT08.S5(O3)",
+    "domain": "comment",
     "isAggregatable": true,
-    "domain": "PT08.S5(O3)",
-    "type": "KeyValueStoreDimension",
-    "description": "PT08.S5(O3)"
-  },
-  "regionIsoCode": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki regionIsoCode",
-    "isAggregatable": true,
-    "domain": "regionIsoCode",
-    "type": "KeyValueStoreDimension",
-    "description": "Iso Code of the region to which the wiki page belongs"
-  },
-  "isMinor": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki isMinor",
-    "isAggregatable": true,
-    "domain": "isMinor",
-    "type": "KeyValueStoreDimension",
-    "description": "Minor is a person who is legally considered a minor"
-  },
-  "PT08.S3(NOx)": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "PT08.S3(NOx)",
-    "isAggregatable": true,
-    "domain": "PT08.S3(NOx)",
-    "type": "KeyValueStoreDimension",
-    "description": "PT08.S3(NOx)"
-  },
-  "isAnonymous": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki isAnonymous",
-    "isAggregatable": true,
-    "domain": "isAnonymous",
-    "type": "KeyValueStoreDimension",
-    "description": "Anonymous are individual or entity whose identity is unknown"
-  },
-  "channel": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki channel",
-    "isAggregatable": true,
-    "domain": "channel",
-    "type": "KeyValueStoreDimension",
-    "description": "Channel is a set of wiki pages on a certain channel"
-  },
-  "C6H6(GT)": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "C6H6(GT)",
-    "isAggregatable": true,
-    "domain": "C6H6(GT)",
-    "type": "KeyValueStoreDimension",
-    "description": "C6H6(GT)"
-  },
-  "isUnpatrolled": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki isUnpatrolled",
-    "isAggregatable": true,
-    "domain": "isUnpatrolled",
-    "type": "KeyValueStoreDimension",
-    "description": "Unpatrolled are class of pages that are not been patrolled"
+    "category": "General",
+    "defaultFields": []
   },
   "AH": {
-    "defaultFields": [],
+    "type": "KeyValueStoreDimension",
     "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
     "fields": [
       {
         "tags": [
@@ -199,17 +37,17 @@
         "name": "DESC"
       }
     ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
     "longName": "AH",
-    "isAggregatable": true,
+    "description": "AH",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
     "domain": "AH",
-    "type": "KeyValueStoreDimension",
-    "description": "AH"
-  },
-  "cityName": {
-    "defaultFields": [],
-    "searchProvider": "memory",
+    "isAggregatable": true,
     "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "C6H6(GT)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
     "fields": [
       {
         "tags": [
@@ -222,281 +60,17 @@
         "name": "DESC"
       }
     ],
+    "longName": "C6H6(GT)",
+    "description": "C6H6(GT)",
     "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki cityName",
+    "domain": "C6H6(GT)",
     "isAggregatable": true,
-    "domain": "cityName",
-    "type": "KeyValueStoreDimension",
-    "description": "Name of the City to which the wiki page belongs"
-  },
-  "metroCode": {
-    "defaultFields": [],
-    "searchProvider": "memory",
     "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki metroCode",
-    "isAggregatable": true,
-    "domain": "metroCode",
-    "type": "KeyValueStoreDimension",
-    "description": "Metro Code to which the wiki page belongs"
-  },
-  "countryName": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki countryName",
-    "isAggregatable": true,
-    "domain": "countryName",
-    "type": "KeyValueStoreDimension",
-    "description": "Name of the Country to which the wiki page belongs"
-  },
-  "page": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki page",
-    "isAggregatable": true,
-    "domain": "page",
-    "type": "KeyValueStoreDimension",
-    "description": "Page is a document that is suitable for World Wide Web and web browsers"
-  },
-  "testDimension": {
-    "defaultFields": [
-      "TEST_PK",
-      "TEST_FIELD_1"
-    ],
-    "searchProvider": "lucene",
-    "category": "a category for testing",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "TEST_PK"
-      },
-      {
-        "tags": [],
-        "name": "TEST_FIELD_1"
-      },
-      {
-        "tags": [],
-        "name": "TEST_FIELD_2"
-      },
-      {
-        "tags": [],
-        "name": "TEST_FIELD_3"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "a longName for testing",
-    "isAggregatable": false,
-    "domain": "testDomain",
-    "description": "a description for testing",
-    "type": "KeyValueStoreDimension"
-  },
-  "T": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "T",
-    "isAggregatable": true,
-    "domain": "T",
-    "type": "KeyValueStoreDimension",
-    "description": "T"
-  },
-  "regionName": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki regionName",
-    "isAggregatable": true,
-    "domain": "regionName",
-    "type": "KeyValueStoreDimension",
-    "description": "Name of the Region to which the wiki page belongs"
-  },
-  "PT08.S4(NO2)": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "NO2(GT)",
-    "isAggregatable": true,
-    "domain": "PT08.S4(NO2)",
-    "type": "KeyValueStoreDimension",
-    "description": "NO2(GT)"
-  },
-  "namespace": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki namespace",
-    "isAggregatable": true,
-    "domain": "namespace",
-    "type": "KeyValueStoreDimension",
-    "description": "Namespace is a set of wiki pages that begins with a reserved word"
-  },
-  "isNew": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki isNew",
-    "isAggregatable": true,
-    "domain": "isNew",
-    "type": "KeyValueStoreDimension",
-    "description": "New Page is the first page that is created in wiki"
-  },
-  "PT08.S2(NMHC)": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "PT08.S2(NMHC)",
-    "isAggregatable": true,
-    "domain": "PT08.S2(NMHC)",
-    "type": "KeyValueStoreDimension",
-    "description": "PT08.S2(NMHC)"
-  },
-  "CO(GT)": {
-    "defaultFields": [],
-    "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "CO(GT)",
-    "isAggregatable": true,
-    "domain": "CO(GT)",
-    "type": "KeyValueStoreDimension",
-    "description": "CO(GT)"
+    "defaultFields": []
   },
   "countryIsoCode": {
-    "defaultFields": [],
+    "type": "KeyValueStoreDimension",
     "searchProvider": "memory",
-    "category": "General",
     "fields": [
       {
         "tags": [
@@ -517,17 +91,178 @@
         "name": "STATE"
       }
     ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "description": "Iso Code of the country to which the wiki page belongs",
-    "isAggregatable": true,
-    "domain": "countryIsoCode",
     "longName": "wiki countryIsoCode",
-    "type": "KeyValueStoreDimension"
+    "description": "Iso Code of the country to which the wiki page belongs",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "countryIsoCode",
+    "isAggregatable": true,
+    "category": "General",
+    "defaultFields": []
+  },
+  "metroCode": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki metroCode",
+    "description": "Metro Code to which the wiki page belongs",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "metroCode",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "channel": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki channel",
+    "description": "Channel is a set of wiki pages on a certain channel",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "channel",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "PT08.S1(CO)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "PT08.S1(CO)",
+    "description": "PT08.S1(CO)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "PT08.S1(CO)",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "isUnpatrolled": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki isUnpatrolled",
+    "description": "Unpatrolled are class of pages that are not been patrolled",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "isUnpatrolled",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "isRobot": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki isRobot",
+    "description": "Robot is an tool that carries out repetitive and mundane tasks",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "isRobot",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "RH": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "RH",
+    "description": "RH",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "RH",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "PT08.S4(NO2)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "NO2(GT)",
+    "description": "NO2(GT)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "PT08.S4(NO2)",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
   },
   "user": {
-    "defaultFields": [],
+    "type": "KeyValueStoreDimension",
     "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
     "fields": [
       {
         "tags": [
@@ -548,17 +283,17 @@
         "name": "SEX"
       }
     ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
     "longName": "wiki user",
-    "isAggregatable": true,
+    "description": "User is a person who generally use or own wiki services",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
     "domain": "user",
-    "type": "KeyValueStoreDimension",
-    "description": "User is a person who generally use or own wiki services"
-  },
-  "NOx(GT)": {
-    "defaultFields": [],
-    "searchProvider": "memory",
+    "isAggregatable": true,
     "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "regionName": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
     "fields": [
       {
         "tags": [
@@ -571,17 +306,40 @@
         "name": "DESC"
       }
     ],
+    "longName": "wiki regionName",
+    "description": "Name of the Region to which the wiki page belongs",
     "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "NOx(GT)",
+    "domain": "regionName",
     "isAggregatable": true,
-    "domain": "NOx(GT)",
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "isNew": {
     "type": "KeyValueStoreDimension",
-    "description": "NOx(GT)"
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki isNew",
+    "description": "New Page is the first page that is created in wiki",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "isNew",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
   },
   "NMHC(GT)": {
-    "defaultFields": [],
+    "type": "KeyValueStoreDimension",
     "searchProvider": "memory",
-    "category": "UNKNOWN_CATEGORY",
     "fields": [
       {
         "tags": [
@@ -594,17 +352,17 @@
         "name": "DESC"
       }
     ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
     "longName": "NMHC(GT)",
-    "isAggregatable": true,
+    "description": "NMHC(GT)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
     "domain": "NMHC(GT)",
-    "type": "KeyValueStoreDimension",
-    "description": "NMHC(GT)"
-  },
-  "RH": {
-    "defaultFields": [],
-    "searchProvider": "memory",
+    "isAggregatable": true,
     "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "page": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
     "fields": [
       {
         "tags": [
@@ -617,17 +375,17 @@
         "name": "DESC"
       }
     ],
+    "longName": "wiki page",
+    "description": "Page is a document that is suitable for World Wide Web and web browsers",
     "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "RH",
+    "domain": "page",
     "isAggregatable": true,
-    "domain": "RH",
-    "type": "KeyValueStoreDimension",
-    "description": "RH"
-  },
-  "PT08.S1(CO)": {
-    "defaultFields": [],
-    "searchProvider": "memory",
     "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "namespace": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
     "fields": [
       {
         "tags": [
@@ -640,40 +398,17 @@
         "name": "DESC"
       }
     ],
+    "longName": "wiki namespace",
+    "description": "Namespace is a set of wiki pages that begins with a reserved word",
     "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "PT08.S1(CO)",
+    "domain": "namespace",
     "isAggregatable": true,
-    "domain": "PT08.S1(CO)",
-    "type": "KeyValueStoreDimension",
-    "description": "PT08.S1(CO)"
-  },
-  "isRobot": {
-    "defaultFields": [],
-    "searchProvider": "memory",
     "category": "UNKNOWN_CATEGORY",
-    "fields": [
-      {
-        "tags": [
-          "primaryKey"
-        ],
-        "name": "ID"
-      },
-      {
-        "tags": [],
-        "name": "DESC"
-      }
-    ],
-    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "longName": "wiki isRobot",
-    "isAggregatable": true,
-    "domain": "isRobot",
-    "type": "KeyValueStoreDimension",
-    "description": "Robot is an tool that carries out repetitive and mundane tasks"
+    "defaultFields": []
   },
-  "comment": {
-    "defaultFields": [],
+  "regionIsoCode": {
+    "type": "KeyValueStoreDimension",
     "searchProvider": "memory",
-    "category": "General",
     "fields": [
       {
         "tags": [
@@ -686,11 +421,276 @@
         "name": "DESC"
       }
     ],
+    "longName": "wiki regionIsoCode",
+    "description": "Iso Code of the region to which the wiki page belongs",
     "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
-    "description": "Comment for the edit to the wiki page",
+    "domain": "regionIsoCode",
     "isAggregatable": true,
-    "domain": "comment",
-    "longName": "wiki comment",
-    "type": "KeyValueStoreDimension"
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "countryName": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki countryName",
+    "description": "Name of the Country to which the wiki page belongs",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "countryName",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "CO(GT)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "CO(GT)",
+    "description": "CO(GT)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "CO(GT)",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "PT08.S2(NMHC)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "PT08.S2(NMHC)",
+    "description": "PT08.S2(NMHC)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "PT08.S2(NMHC)",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "isMinor": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki isMinor",
+    "description": "Minor is a person who is legally considered a minor",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "isMinor",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "testDimension": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "lucene",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "TEST_PK"
+      },
+      {
+        "tags": [],
+        "name": "TEST_FIELD_1"
+      },
+      {
+        "tags": [],
+        "name": "TEST_FIELD_2"
+      },
+      {
+        "tags": [],
+        "name": "TEST_FIELD_3"
+      }
+    ],
+    "longName": "a longName for testing",
+    "description": "a description for testing",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "testDomain",
+    "isAggregatable": false,
+    "defaultFields": [
+      "TEST_PK",
+      "TEST_FIELD_1"
+    ],
+    "category": "a category for testing"
+  },
+  "PT08.S3(NOx)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "PT08.S3(NOx)",
+    "description": "PT08.S3(NOx)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "PT08.S3(NOx)",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "PT08.S5(O3)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "PT08.S5(O3)",
+    "description": "PT08.S5(O3)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "PT08.S5(O3)",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "NOx(GT)": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "NOx(GT)",
+    "description": "NOx(GT)",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "NOx(GT)",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "T": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "T",
+    "description": "T",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "T",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "cityName": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki cityName",
+    "description": "Name of the City to which the wiki page belongs",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "cityName",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
+  },
+  "isAnonymous": {
+    "type": "KeyValueStoreDimension",
+    "searchProvider": "memory",
+    "fields": [
+      {
+        "tags": [
+          "primaryKey"
+        ],
+        "name": "ID"
+      },
+      {
+        "tags": [],
+        "name": "DESC"
+      }
+    ],
+    "longName": "wiki isAnonymous",
+    "description": "Anonymous are individual or entity whose identity is unknown",
+    "keyValueStore": "com.yahoo.bard.webservice.data.dimension.MapStore",
+    "domain": "isAnonymous",
+    "isAggregatable": true,
+    "category": "UNKNOWN_CATEGORY",
+    "defaultFields": []
   }
 }
