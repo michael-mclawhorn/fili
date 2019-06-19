@@ -2,27 +2,12 @@
 // Licensed under the terms of the Apache license. Please see LICENSE.md file distributed with this work for terms.
 package com.yahoo.bard.webservice.config.luthier.factories;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.yahoo.bard.webservice.config.luthier.Factory;
-import com.yahoo.bard.webservice.config.luthier.LuthierFactoryException;
 import com.yahoo.bard.webservice.config.luthier.LuthierIndustrialPark;
 import com.yahoo.bard.webservice.config.luthier.LuthierValidationUtils;
-import com.yahoo.bard.webservice.data.config.LuthierDimensionField;
-import com.yahoo.bard.webservice.data.dimension.Dimension;
-import com.yahoo.bard.webservice.data.dimension.DimensionField;
-import com.yahoo.bard.webservice.data.dimension.KeyValueStore;
 import com.yahoo.bard.webservice.data.dimension.SearchProvider;
-import com.yahoo.bard.webservice.data.dimension.impl.KeyValueStoreDimension;
 import com.yahoo.bard.webservice.data.dimension.impl.LuceneSearchProvider;
-import com.yahoo.bard.webservice.util.EnumUtils;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 /**
  * A factory that is used by default to support KeyValueStore Dimensions.

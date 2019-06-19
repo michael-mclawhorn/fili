@@ -2,7 +2,6 @@
 // Licensed under the terms of the Apache license. Please see LICENSE.md file distributed with this work for terms.
 package com.yahoo.bard.webservice.config.luthier;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.yahoo.bard.webservice.config.luthier.factories.KeyValueStoreDimensionFactory;
 import com.yahoo.bard.webservice.config.luthier.factories.LuceneSearchProviderFactory;
 import com.yahoo.bard.webservice.config.luthier.factories.NoOpSearchProviderFactory;
@@ -34,7 +33,6 @@ import java.util.function.Supplier;
  */
 public class LuthierIndustrialPark implements ConfigurationLoader {
 
-    private static final String DOMAIN_NOT_FOUND = "'%s' is not found in SearchProviderConfig.json";
     private final ResourceDictionaries resourceDictionaries;
     private final FactoryPark<Dimension> dimensionFactoryPark;
     private final FactoryPark<SearchProvider> searchProviderFactoryPark;
@@ -85,7 +83,7 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
      * Builds a SearchProvider for a specific domain.
      *
      * @param domain  a string that is associated with the type o
-     * @return
+     * @return  an instance of the SearchProvider that correspond to the domain
      */
     public SearchProvider getSearchProvider(String domain) {
         SearchProvider searchProvider = searchProviderFactoryPark.buildEntity(domain, this);

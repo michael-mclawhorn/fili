@@ -52,8 +52,12 @@ public class LuthierDimensionField implements DimensionField {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         LuthierDimensionField that = (LuthierDimensionField) o;
         return camelName.equals(that.camelName) &&
                 Objects.equals(description, that.description) &&
