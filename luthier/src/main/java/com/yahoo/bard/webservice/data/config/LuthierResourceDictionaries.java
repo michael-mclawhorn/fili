@@ -29,13 +29,21 @@ public class LuthierResourceDictionaries extends ResourceDictionaries {
     public Map<String, MetricMaker> getMetricMakerDictionary() {
         return metricMakerDictionary;
     }
-
     public Map<String, SearchProvider> getSearchProviderDictionary() {
         return searchProviderDictionary;
     }
 
     /**
-     * Supply the default maker dictionaries available in all application.
+     * Supply the default searchProvider dictionaries available in the entire application.
+     *
+     * @return  A map of named SearchProviders
+     */
+    public static Map<String, SearchProvider> defaultSearchProviderDictionary() {
+        return new HashMap<>();
+    }
+
+    /**
+     * Supply the default maker dictionaries available in the entire application.
      *
      * @return  A map of named MetricMakers
      */

@@ -11,6 +11,7 @@ import com.yahoo.bard.webservice.data.config.metric.MetricLoader;
 import com.yahoo.bard.webservice.data.config.metric.makers.MetricMaker;
 import com.yahoo.bard.webservice.data.config.table.TableLoader;
 import com.yahoo.bard.webservice.data.dimension.Dimension;
+import com.yahoo.bard.webservice.data.dimension.SearchProvider;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -33,10 +34,22 @@ public class LuthierBinderFactory extends AbstractBinderFactory {
 
     /**
      * Extension point to add default dimension factories.
+     * If it does not return Optional.empty, overwrites the factories specified in LuthierIndustrialPark.
      *
-     * @return  Initializing dimension factories.
+     * @return  Optional default Dimension factories.
      */
     protected Optional<Map<String, Factory<Dimension>>> getDimensionFactories() {
+        return Optional.empty();
+    }
+
+
+    /**
+     * Extension point to add default searchProvider factories.
+     * If it does not return Optional.empty, overwrites the factories specified in LuthierIndustrialPark.
+     *
+     * @return  Optional default SearchProvider factories.
+     */
+    protected Optional<Map<String, Factory<SearchProvider>>> getSearchProviderFactories() {
         return Optional.empty();
     }
 
@@ -56,6 +69,9 @@ public class LuthierBinderFactory extends AbstractBinderFactory {
      */
     protected void initializeDictionaries(LuthierResourceDictionaries resourceDictionaries) {
         resourceDictionaries.getMetricMakerDictionary().putAll(LuthierResourceDictionaries.defaultMakerDictionary());
+        resourceDictionaries.getSearchProviderDictionary().putAll(
+                LuthierResourceDictionaries.defaultSearchProviderDictionary()
+        );
     }
 
     @Override

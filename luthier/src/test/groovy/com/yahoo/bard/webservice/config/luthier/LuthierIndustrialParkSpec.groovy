@@ -4,9 +4,7 @@ package com.yahoo.bard.webservice.config.luthier
 import com.yahoo.bard.webservice.config.luthier.factories.KeyValueStoreDimensionFactory
 import com.yahoo.bard.webservice.data.config.LuthierDimensionField
 import com.yahoo.bard.webservice.data.config.LuthierResourceDictionaries
-import com.yahoo.bard.webservice.data.config.ResourceDictionaries
 import com.yahoo.bard.webservice.data.dimension.Dimension
-import com.yahoo.bard.webservice.data.dimension.MapStore
 import com.yahoo.bard.webservice.data.dimension.impl.LuceneSearchProvider
 import spock.lang.Specification
 

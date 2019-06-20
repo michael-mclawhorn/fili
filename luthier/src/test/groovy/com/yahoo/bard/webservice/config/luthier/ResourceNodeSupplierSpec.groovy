@@ -1,6 +1,5 @@
 package com.yahoo.bard.webservice.config.luthier
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import spock.lang.Specification
