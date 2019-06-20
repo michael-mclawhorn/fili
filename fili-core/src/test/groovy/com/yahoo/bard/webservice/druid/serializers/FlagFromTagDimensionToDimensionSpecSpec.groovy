@@ -1,4 +1,4 @@
-// Copyright 2019 Oath Inc.
+// Copyright 2019 Yahoo Inc.
 // Licensed under the terms of the Apache license. Please see LICENSE.md file distributed with this work for terms.
 package com.yahoo.bard.webservice.druid.serializers
 
@@ -106,7 +106,7 @@ class FlagFromTagDimensionToDimensionSpecSpec extends Specification {
         JsonNode outerQueryJson = objectMapper.valueToTree(outerQuery)
         // remove the inner query from the outer query. We are not checking datasource serialization so this doesn't affect any testing
         ((ObjectNode) outerQueryJson).remove("dataSource")
-        
+
         // get the dimensions serialization for each node
         ArrayNode innerQueryDimensionsSerialization = (ArrayNode) innerQueryJson.findParent("dimensions").get("dimensions")
         ArrayNode outerQueryDimensionSerialization = (ArrayNode) outerQueryJson.findParent("dimensions").get("dimensions")
