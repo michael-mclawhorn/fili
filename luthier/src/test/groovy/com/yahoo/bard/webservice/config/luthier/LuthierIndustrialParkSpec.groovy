@@ -38,8 +38,6 @@ class LuthierIndustrialParkSpec extends Specification {
             thrown(IllegalArgumentException)
     }
 
-
-
     def "A Lucene SearchProvider is correctly constructed through a test Dimension from the default Industrial Park"() {
         given:
             defaultIndustrialPark = new LuthierIndustrialPark.Builder(resourceDictionaries).build()
@@ -49,7 +47,7 @@ class LuthierIndustrialParkSpec extends Specification {
             LuceneSearchProvider luceneSearchProvider = testDimension.getSearchProvider()
         then:
             luceneSearchProvider.getDimension() == testDimension
-            luceneSearchProvider.luceneIndexPath == "/tmp/lucene/"
+            luceneSearchProvider.luceneIndexPath == "./target/tmp/lucene/"
             luceneSearchProvider.maxResults == 100000
             luceneSearchProvider.searchTimeout == 600000
     }

@@ -27,7 +27,7 @@ local FULLY_QUALIFIED_NAME = {
 M = {
     lucene =  {
         type = FULLY_QUALIFIED_NAME.lucene,
-        indexPath = "/tmp/lucene/",
+        indexPath = "./target/tmp/lucene/",
         maxResults = 100000,
         searchTimeout = 600000
     },
