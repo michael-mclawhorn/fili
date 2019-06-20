@@ -3,6 +3,7 @@ package com.yahoo.bard.webservice.config.luthier.factories
 import com.yahoo.bard.webservice.config.luthier.Factory
 import com.yahoo.bard.webservice.config.luthier.LuthierIndustrialPark
 import com.yahoo.bard.webservice.data.config.LuthierDimensionField
+import com.yahoo.bard.webservice.data.config.LuthierResourceDictionaries
 import com.yahoo.bard.webservice.data.config.ResourceDictionaries
 import com.yahoo.bard.webservice.data.dimension.Dimension
 import com.yahoo.bard.webservice.data.dimension.DimensionField
@@ -17,7 +18,7 @@ class KeyValueStoreDimensionFactorySpec extends Specification {
         Map<String, Factory<Dimension>> dimensionFactoriesMap = new HashMap<>()
         dimensionFactoriesMap.put("KeyValueStoreDimension", new KeyValueStoreDimensionFactory())
 
-        ResourceDictionaries resourceDictionaries = new ResourceDictionaries()
+        LuthierResourceDictionaries resourceDictionaries = new LuthierResourceDictionaries()
         park = new LuthierIndustrialPark.Builder(resourceDictionaries)
                 .withDimensionFactories(dimensionFactoriesMap)
                 .build()

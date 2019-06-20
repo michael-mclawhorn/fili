@@ -3,6 +3,7 @@
 package com.yahoo.bard.webservice.data.config;
 
 import com.yahoo.bard.webservice.data.config.metric.makers.MetricMaker;
+import com.yahoo.bard.webservice.data.dimension.SearchProvider;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -15,15 +16,22 @@ public class LuthierResourceDictionaries extends ResourceDictionaries {
 
     private final Map<String, MetricMaker> metricMakerDictionary;
 
+    private final Map<String, SearchProvider> searchProviderDictionary;
+
     /**
      * Constructor.
      */
     public LuthierResourceDictionaries() {
         super();
         metricMakerDictionary = new LinkedHashMap<>();
+        searchProviderDictionary = new LinkedHashMap<>();
     }
     public Map<String, MetricMaker> getMetricMakerDictionary() {
         return metricMakerDictionary;
+    }
+
+    public Map<String, SearchProvider> getSearchProviderDictionary() {
+        return searchProviderDictionary;
     }
 
     /**

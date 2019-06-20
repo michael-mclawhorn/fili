@@ -3,6 +3,7 @@ package com.yahoo.bard.webservice.config.luthier
 
 import com.yahoo.bard.webservice.config.luthier.factories.KeyValueStoreDimensionFactory
 import com.yahoo.bard.webservice.data.config.LuthierDimensionField
+import com.yahoo.bard.webservice.data.config.LuthierResourceDictionaries
 import com.yahoo.bard.webservice.data.config.ResourceDictionaries
 import com.yahoo.bard.webservice.data.dimension.Dimension
 import com.yahoo.bard.webservice.data.dimension.MapStore
@@ -12,9 +13,9 @@ import spock.lang.Specification
 class LuthierIndustrialParkSpec extends Specification {
     LuthierIndustrialPark industrialPark
     LuthierIndustrialPark defaultIndustrialPark
-    ResourceDictionaries resourceDictionaries
+    LuthierResourceDictionaries resourceDictionaries
     void setup() {
-        resourceDictionaries = new ResourceDictionaries()
+        resourceDictionaries = new LuthierResourceDictionaries()
     }
 
     def "An industrialPark instance built with a custom dimensionFactories map contains a particular testDimension."() {
@@ -39,20 +40,32 @@ class LuthierIndustrialParkSpec extends Specification {
             thrown(IllegalArgumentException)
     }
 
-    def "An industrialPark contains appropriate default factory maps to supply the testDimension"() {
+
+
+    def "A Lucene SearchProvider is correctly constructed through a test Dimension from the default Industrial Park"() {
         given:
             defaultIndustrialPark = new LuthierIndustrialPark.Builder(resourceDictionaries).build()
         when:
             defaultIndustrialPark.load()
             Dimension testDimension = defaultIndustrialPark.getDimension("testDimension")
             LuceneSearchProvider luceneSearchProvider = testDimension.getSearchProvider()
-            LuceneSearchProvider expectedSearchProvider = new LuceneSearchProvider("/tmp/lucene/", 100000, 600000)
-            expectedSearchProvider.setKeyValueStore(new MapStore())
-            expectedSearchProvider.setDimension(testDimension)
         then:
             luceneSearchProvider.getDimension() == testDimension
-            // luceneSearchProvider == expectedSearchProvider
-            luceneSearchProvider.class.canonicalName ==
-                    "com.yahoo.bard.webservice.data.dimension.impl.LuceneSearchProvider"
+            luceneSearchProvider.luceneIndexPath == "/tmp/lucene/"
+            luceneSearchProvider.maxResults == 100000
+            luceneSearchProvider.searchTimeout == 600000
+    }
+
+    def "When a dimension name gets fetched the second time, it refers to the same object as the first one"() {
+        given:
+            defaultIndustrialPark = new LuthierIndustrialPark.Builder(resourceDictionaries).build()
+        when:
+            defaultIndustrialPark.load()
+            Dimension testDimension = defaultIndustrialPark.getDimension("testDimension")
+            Dimension secondTestDimension = defaultIndustrialPark.getDimension("testDimension")
+            Dimension differentTestDimension = defaultIndustrialPark.getDimension("comment")
+        then:
+            secondTestDimension.is(testDimension)
+            ! differentTestDimension.is(testDimension)
     }
 }

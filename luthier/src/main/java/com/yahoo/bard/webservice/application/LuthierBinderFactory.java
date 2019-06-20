@@ -15,6 +15,7 @@ import com.yahoo.bard.webservice.data.dimension.Dimension;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Extend the abstract binder factory to add external configuration.
@@ -25,8 +26,9 @@ public class LuthierBinderFactory extends AbstractBinderFactory {
     protected ConfigurationLoader getConfigurationLoader() {
         LuthierResourceDictionaries resourceDictionaries = new LuthierResourceDictionaries();
         initializeDictionaries(resourceDictionaries);
-        return new LuthierIndustrialPark.Builder(resourceDictionaries)
-                .withDimensionFactories(getDimensionFactories()).build();
+        LuthierIndustrialPark.Builder builder = new LuthierIndustrialPark.Builder(resourceDictionaries);
+        getDimensionFactories().ifPresent(builder::withDimensionFactories);
+        return builder.build();
     }
 
     /**
@@ -34,8 +36,8 @@ public class LuthierBinderFactory extends AbstractBinderFactory {
      *
      * @return  Initializing dimension factories.
      */
-    protected Map<String, Factory<Dimension>> getDimensionFactories() {
-        return Collections.EMPTY_MAP;
+    protected Optional<Map<String, Factory<Dimension>>> getDimensionFactories() {
+        return Optional.empty();
     }
 
     /**

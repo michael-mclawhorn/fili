@@ -7,6 +7,7 @@ import com.yahoo.bard.webservice.config.luthier.factories.LuceneSearchProviderFa
 import com.yahoo.bard.webservice.config.luthier.factories.NoOpSearchProviderFactory;
 import com.yahoo.bard.webservice.config.luthier.factories.ScanSearchProviderFactory;
 import com.yahoo.bard.webservice.data.config.ConfigurationLoader;
+import com.yahoo.bard.webservice.data.config.LuthierResourceDictionaries;
 import com.yahoo.bard.webservice.data.config.ResourceDictionaries;
 import com.yahoo.bard.webservice.data.dimension.Dimension;
 import com.yahoo.bard.webservice.data.dimension.DimensionDictionary;
@@ -33,7 +34,7 @@ import java.util.function.Supplier;
  */
 public class LuthierIndustrialPark implements ConfigurationLoader {
 
-    private final ResourceDictionaries resourceDictionaries;
+    private final LuthierResourceDictionaries resourceDictionaries;
     private final FactoryPark<Dimension> dimensionFactoryPark;
     private final FactoryPark<SearchProvider> searchProviderFactoryPark;
 
@@ -45,7 +46,7 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
      * @param searchProviderFactories The map of factories for creating dimensions from external config
      */
     protected LuthierIndustrialPark(
-            ResourceDictionaries resourceDictionaries,
+            LuthierResourceDictionaries resourceDictionaries,
             Map<String, Factory<Dimension>> dimensionFactories,
             Map<String, Factory<SearchProvider>> searchProviderFactories
     ) {
@@ -86,8 +87,12 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
      * @return  an instance of the SearchProvider that correspond to the domain
      */
     public SearchProvider getSearchProvider(String domain) {
-        SearchProvider searchProvider = searchProviderFactoryPark.buildEntity(domain, this);
-        return searchProvider;
+        Map<String, SearchProvider> searchProviderDictionary = resourceDictionaries.getSearchProviderDictionary();
+        if (! searchProviderDictionary.containsKey(domain)) {
+            SearchProvider searchProvider = searchProviderFactoryPark.buildEntity(domain, this);
+            searchProviderDictionary.put(domain, searchProvider);
+        }
+        return searchProviderDictionary.get(domain);
     }
 
     /**
@@ -146,7 +151,7 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
         private Map<String, Factory<Dimension>> dimensionFactories;
         private Map<String, Factory<SearchProvider>> searchProviderFactories;
 
-        private final ResourceDictionaries resourceDictionaries;
+        private final LuthierResourceDictionaries resourceDictionaries;
 
         /**
          * Constructor.
@@ -154,7 +159,7 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
          * @param resourceDictionaries  a class that contains resource dictionaries including
          * PhysicalTableDictionary, DimensionDictionary, etc.
          */
-        public Builder(ResourceDictionaries resourceDictionaries) {
+        public Builder(LuthierResourceDictionaries resourceDictionaries) {
             this.resourceDictionaries = resourceDictionaries;
             dimensionFactories = getDefaultDimensionFactories();
             searchProviderFactories = getDefaultSearchProviderFactories();
@@ -166,7 +171,7 @@ public class LuthierIndustrialPark implements ConfigurationLoader {
          * Default to use an empty resource dictionary.
          */
         public Builder() {
-            this(new ResourceDictionaries());
+            this(new LuthierResourceDictionaries());
         }
 
 
