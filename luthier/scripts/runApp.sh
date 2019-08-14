@@ -7,4 +7,4 @@ local PORT="${1:-9998}"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 #launch the project
-mvn -pl fili-wikipedia-example exec:java -Dbard__fili_port=${PORT} -Dbard__druid_coord=http://localhost:8081/druid/coordinator/v1 -Dbard__druid_broker=http://localhost:8082/druid/v2
+mvn -pl luthier exec:java -Dbard__fili_port=${PORT} -Dbard__druid_coord=http://localhost:8081/druid/coordinator/v1 -Dbard__druid_broker=http://localhost:8082/druid/v2
