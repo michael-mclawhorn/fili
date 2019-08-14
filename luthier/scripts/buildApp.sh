@@ -18,5 +18,5 @@ lua config.lua $APPLICATION
 # install fili using mvn
 cd $DIR/../../
 mvn install -DskipTests -Dcheckstyle.skip
-# runs luthier wiki example on port 9012
+# runs luthier wiki example on port ${PORT}
 ./luthier/scripts/runApp $PORT
