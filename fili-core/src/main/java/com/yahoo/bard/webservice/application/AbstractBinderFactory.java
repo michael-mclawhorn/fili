@@ -1212,8 +1212,9 @@ public abstract class AbstractBinderFactory implements BinderFactory {
     }
 
     /**
-     * Get a custom configured ssl context. If null, the system default SSL Context will be applied
-     * @return SSL context
+     * Get a custom configured ssl context.
+     *
+     * @return SSL context If null, the system default SSL Context will be applied
      */
     protected SslContext getSSLContext() {
         return null;
